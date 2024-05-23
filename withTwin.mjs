@@ -24,7 +24,7 @@ export default function withTwin(
       config.module.rules = config.module.rules || [];
 
       config.module.rules.push({
-        test: /\.(jsx|js)$/,
+        test: /\.(tsx|ts)$/,
         include: includedDirs,
         use: [
           {
@@ -36,6 +36,7 @@ export default function withTwin(
                   '@babel/preset-react',
                   { runtime: 'automatic', importSource: '@emotion/react' },
                 ],
+                '@babel/preset-typescript',
               ],
               plugins: [babelPluginTwin, babelPluginMacros],
             },
@@ -43,8 +44,9 @@ export default function withTwin(
         ],
       });
 
-      if (typeof nextConfig.webpack === 'function')
+      if (typeof nextConfig.webpack === 'function') {
         return nextConfig.webpack(config, options);
+      }
 
       return config;
     },
