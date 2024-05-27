@@ -5,7 +5,7 @@ import { useGetUserByIdQuery } from '@/apis/test/test.query';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export default function Home() {
+export default function MainPage() {
   const apiTestRes = useGetUserByIdQuery();
   console.log({ apiTestRes });
   return (
