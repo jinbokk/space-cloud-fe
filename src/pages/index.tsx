@@ -1,6 +1,7 @@
-import { useGetUserByIdQuery } from '@/api/test/test.query';
 import { Inter } from 'next/font/google';
 import Image from 'next/image';
+
+import { useGetUserByIdQuery } from '@/apis/test/test.query';
 
 const inter = Inter({ subsets: ['latin'] });
 
