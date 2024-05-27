@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import '@/styles/base/font.css';
 import '@/styles/base/reset.css';
@@ -17,6 +18,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     <QueryClientProvider client={queryClient}>
       <GlobalStyles />
       <Component {...pageProps} />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };
