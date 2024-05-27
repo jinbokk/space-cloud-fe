@@ -2,6 +2,11 @@
   "name": "space-cloud",
   "version": "0.1.0",
   "private": true,
+  "babelMacros": {
+    "twin": {
+      "preset": "emotion"
+    }
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -21,7 +26,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@babel/plugin-syntax-typescript": "^7.24.1",
+    "@babel/plugin-syntax-typescript": "^7.24.6",
     "@babel/preset-react": "^7.24.1",
     "@babel/preset-typescript": "^7.24.1",
     "@emotion/babel-plugin": "^11.11.0",

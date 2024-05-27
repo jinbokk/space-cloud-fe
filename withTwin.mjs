@@ -1,3 +1,4 @@
+import babelPluginTypescript from '@babel/plugin-syntax-typescript';
 import babelPluginMacros from 'babel-plugin-macros';
 import babelPluginTwin from 'babel-plugin-twin';
 import * as path from 'path';
@@ -38,7 +39,11 @@ export default function withTwin(
                 ],
                 '@babel/preset-typescript',
               ],
-              plugins: [babelPluginTwin, babelPluginMacros],
+              plugins: [
+                babelPluginTwin,
+                babelPluginMacros,
+                [babelPluginTypescript, { isTSX: true }],
+              ],
             },
           },
         ],
