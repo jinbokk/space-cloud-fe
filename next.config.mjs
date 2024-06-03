@@ -5,6 +5,9 @@ import withTwin from './withTwin.mjs';
  */
 const nextConfig = withTwin({
   reactStrictMode: true,
+  images: {
+    domains: ['kr.object.ncloudstorage.com'],
+  },
 });
 
 export default nextConfig;
