@@ -21,6 +21,8 @@ export default function withTwin(
       config,
       options,
     ) {
+      const { dev, isServer } = options;
+
       config.module = config.module || {};
       config.module.rules = config.module.rules || [];
 
@@ -28,10 +30,11 @@ export default function withTwin(
         test: /\.(tsx|ts)$/,
         include: includedDirs,
         use: [
+          options.defaultLoaders.babel,
           {
             loader: 'babel-loader',
             options: {
-              sourceMaps: options.dev,
+              sourceMaps: dev,
               presets: [
                 [
                   '@babel/preset-react',
@@ -43,11 +46,31 @@ export default function withTwin(
                 babelPluginTwin,
                 babelPluginMacros,
                 [babelPluginTypescript, { isTSX: true }],
+                [
+                  '@emotion/babel-plugin',
+                  {
+                    sourceMap: true,
+                    autoLabel: 'dev-only',
+                    labelFormat: '[local]',
+                    cssPropOptimization: true,
+                  },
+                ],
               ],
             },
           },
         ],
       });
+
+      if (!isServer) {
+        config.resolve.fallback = {
+          ...(config.resolve.fallback || {}),
+          fs: false,
+          module: false,
+          path: false,
+          os: false,
+          crypto: false,
+        };
+      }
 
       if (typeof nextConfig.webpack === 'function') {
         return nextConfig.webpack(config, options);
