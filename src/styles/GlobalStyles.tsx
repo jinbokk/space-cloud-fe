@@ -3,14 +3,9 @@ import tw, { GlobalStyles as BaseStyles, css } from 'twin.macro';
 
 const customStyles = css`
   body {
+    font-family: 'Nanum Gothic', 'Pretendard', Helvetica, 'Apple SD Gothic Neo',
+      Sans-serif !important;
     ${tw`antialiased`}
-    font-family:
-    Nanum Gothic,
-    Pretendard,
-      '돋움',
-      Helvetica,
-      'Apple SD Gothic Neo',
-      Sans-serif;
   }
 `;
 
