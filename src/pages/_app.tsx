@@ -8,8 +8,6 @@ import {
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useState } from 'react';
 
-import ContentWrapper from '@/components/apps/layout/ContentWrapper';
-
 import '@/styles/base/font.css';
 import '@/styles/base/reset.css';
 import '@/styles/globals.css';
@@ -47,9 +45,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       <HydrationBoundary state={pageProps.dehydratedState}>
         <CacheProvider value={cache}>
           <GlobalStyles />
-          <ContentWrapper>
-            <Component {...pageProps} />
-          </ContentWrapper>
+          <Component {...pageProps} />
         </CacheProvider>
       </HydrationBoundary>
       <ReactQueryDevtools initialIsOpen={false} />

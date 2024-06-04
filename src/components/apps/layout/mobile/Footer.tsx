@@ -119,9 +119,6 @@ export default function Footer() {
 }
 
 const FooterContainer = styled.footer`
-  position: absolute;
-  bottom: 0;
-  left: 0;
   width: 100%;
   padding: 20px 0 17px;
   color: ${theme`colors.apps.gray_02`};

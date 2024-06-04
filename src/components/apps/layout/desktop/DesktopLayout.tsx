@@ -4,7 +4,6 @@ import React from 'react';
 import IsDesktop from './IsDesktop';
 
 const DefaultLayout = dynamic(() => import('./DefaultLayout'));
-const Header = dynamic(() => import('./Header'));
 
 type Props = {
   hideMenu?: boolean;
@@ -14,7 +13,6 @@ type Props = {
 export default function DesktopLayout({ children, ...props }: Props) {
   return (
     <IsDesktop>
-      <Header />
       <DefaultLayout {...props}>{children}</DefaultLayout>
     </IsDesktop>
   );

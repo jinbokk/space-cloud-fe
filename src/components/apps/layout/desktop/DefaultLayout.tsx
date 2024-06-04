@@ -1,8 +1,12 @@
+import dynamic from 'next/dynamic';
 import React from 'react';
 import { styled, theme } from 'twin.macro';
 
-import Footer from './Footer';
+import ContentWrapper from '../ContentWrapper';
 import Main from './Main';
+
+const Header = dynamic(() => import('./Header'));
+const Footer = dynamic(() => import('./Footer'));
 
 // TODO: 페이지별로 파악해서 타입 추가하기
 export type paddingProps = {
@@ -24,7 +28,10 @@ export default function DefaultLayout({
 }: Props) {
   return (
     <LayoutContainer>
-      <Main padding={padding}>{children}</Main>
+      <Header />
+      <ContentWrapper>
+        <Main padding={padding}>{children}</Main>
+      </ContentWrapper>
       <Footer />
     </LayoutContainer>
   );
@@ -33,6 +40,7 @@ export default function DefaultLayout({
 const LayoutContainer = styled.section`
   display: flex;
   flex-direction: column;
+  width: 100%;
   height: 100%;
   padding-top: ${theme`variables.apps.pc-header-height`};
 `;

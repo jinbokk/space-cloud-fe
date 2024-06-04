@@ -18,9 +18,15 @@ export default function Header() {
 }
 
 const HeaderContainer = styled.header`
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: space-between;
+  width: 100%;
   padding: 24px 0;
+  z-index: 10000;
+  background-color: white;
 `;
 
 const LeftMenu = styled.div``;
