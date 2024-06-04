@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { styled, theme } from 'twin.macro';
+import { styled } from 'twin.macro';
 
 import NoImage from '../NoImage';
 
@@ -63,21 +63,17 @@ export default function SpaceCard({
 }
 
 const SpaceCardContainer = styled.div`
+  flex: 1;
   overflow: hidden;
   box-shadow: 1px 2px 6px 0 rgba(0, 0, 0, 0.16078);
   border-radius: 12px;
   cursor: pointer;
-  @media (min-width: ${theme`screens.lg`}) {
-    width: 362px;
-    height: 276px;
-  }
+  height: 276px;
 `;
 
 const ImageWrapper = styled.div`
   position: relative;
-  @media (min-width: ${theme`screens.lg`}) {
-    height: 180px;
-  }
+  height: 180px;
 `;
 
 const ContentsContainer = styled.div`
