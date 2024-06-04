@@ -43,6 +43,7 @@ export const Banner = ({ imageSet, className }: BannerProps) => {
             <CustomSwiperSlide key={index}>
               <ImageWrapper className={className}>
                 <Image
+                  priority
                   src={image.src}
                   alt={image.alt}
                   fill
@@ -73,6 +74,7 @@ const BannerContainer = styled.div`
 `;
 
 const ImageWrapper = styled.div`
+  position: relative;
   width: 100%;
   min-height: 100px;
   aspect-ratio: 1128 / 200;
