@@ -1,12 +1,30 @@
+import { styled } from 'twin.macro';
+
 import { Banner } from '../../ui/Banner';
+import SpaceCard from '../../ui/SpaceCard';
 
 export default function Home() {
   return (
-    <>
-      <Banner imageSet={BANNER_IMAGE_SET} />
-    </>
+    <HomeConatiner>
+      <Section>
+        <Banner imageSet={BANNER_IMAGE_SET} />
+      </Section>
+
+      <Section>
+        <SpaceCard />
+      </Section>
+    </HomeConatiner>
   );
 }
+
+const HomeConatiner = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  height: fit-content;
+`;
+
+const Section = styled.section``;
 
 const BANNER_IMAGE_SET = [
   {
