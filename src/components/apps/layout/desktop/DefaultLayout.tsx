@@ -2,7 +2,6 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 import { styled, theme } from 'twin.macro';
 
-import ContentWrapper from '../ContentWrapper';
 import Main from './Main';
 
 const Header = dynamic(() => import('./Header'));
@@ -29,9 +28,7 @@ export default function DefaultLayout({
   return (
     <LayoutContainer>
       <Header />
-      <ContentWrapper>
-        <Main padding={padding}>{children}</Main>
-      </ContentWrapper>
+      <Main padding={padding}>{children}</Main>
       <Footer />
     </LayoutContainer>
   );
