@@ -18,8 +18,10 @@ export default function SpaceCardList({ data }: SpaceCardListProps) {
       items={data.map((card, index) => (
         <SpaceCard key={index} {...card} />
       ))}
-      slidesPerView={isDesktop ? 3 : 1}
+      slidesPerView={isDesktop ? 3.02 : 1.3}
       spaceBetween={15}
+      centeredSlides
+      hasContentBoxShadow
     />
   );
 }

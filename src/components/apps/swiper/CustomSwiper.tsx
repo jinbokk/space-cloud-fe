@@ -5,17 +5,22 @@ import 'swiper/css/pagination';
 import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 import { SwiperProps } from 'swiper/react';
-import { styled, theme } from 'twin.macro';
+import { css, styled, theme } from 'twin.macro';
 
 interface CustomSwiperProps extends SwiperProps {
   items: any;
+  className?: string;
+  hasContentBoxShadow?: boolean;
 }
 
 export const CustomSwiper = ({
   items,
+  className,
+  hasContentBoxShadow = false,
   slidesPerView = 1,
   spaceBetween = 0,
   autoplay,
+  ...props
 }: CustomSwiperProps) => {
   const [swiperRef, setSwiperRef] = useState<SwiperClass>();
 
@@ -27,41 +32,57 @@ export const CustomSwiper = ({
     swiperRef?.slideNext();
   };
   return (
-    <CustomSwiperContainer>
-      <StyledSwiper
-        spaceBetween={spaceBetween}
-        slidesPerView={slidesPerView}
-        loop
-        modules={[Autoplay]}
-        autoplay={autoplay && { delay: 3000 }}
-        speed={800}
-        onSwiper={(swiper) => setSwiperRef(swiper)}
-      >
-        {items.map((item: any, index: number) => {
-          return <CustomSwiperSlide key={index}>{item}</CustomSwiperSlide>;
-        })}
-      </StyledSwiper>
-
+    <CustomSwiperContainer hasContentBoxShadow={hasContentBoxShadow}>
+      <StyledSwiperWrapper className={className}>
+        <StyledSwiper
+          {...props}
+          spaceBetween={spaceBetween}
+          slidesPerView={slidesPerView}
+          loop
+          modules={autoplay ? [Autoplay] : []}
+          autoplay={autoplay ? { delay: 3000 } : false}
+          speed={800}
+          onSwiper={(swiper) => setSwiperRef(swiper)}
+        >
+          {items.map((item: any, index: number) => {
+            return <CustomSwiperSlide key={index}>{item}</CustomSwiperSlide>;
+          })}
+        </StyledSwiper>
+      </StyledSwiperWrapper>
       <PrevButton onClick={handlePrev}></PrevButton>
       <NextButton onClick={handleNext}></NextButton>
     </CustomSwiperContainer>
   );
 };
 
-const CustomSwiperContainer = styled.div`
+const CustomSwiperContainer = styled.div<{
+  hasContentBoxShadow: boolean;
+}>`
   position: relative;
   width: 100%;
   aspect-ratio: 1128 / 200;
   cursor: pointer;
-  .swiper {
-    padding-bottom: 10px;
-  }
+
+  ${({ hasContentBoxShadow }) =>
+    hasContentBoxShadow &&
+    css`
+      padding-bottom: -10px;
+      & button {
+        display: none;
+        @media (min-width: ${theme`screens.lg`}) {
+          display: block;
+          top: calc(50% - 10px);
+        }
+      }
+      & .swiper-slide {
+        padding-bottom: 10px;
+      }
+    `};
 `;
 
-const StyledSwiper = styled(Swiper)`
-  border-radius: 20px;
-  padding: 24px 0;
-`;
+const StyledSwiperWrapper = styled.div``;
+
+const StyledSwiper = styled(Swiper)``;
 
 const CustomSwiperSlide = styled(SwiperSlide)``;
 

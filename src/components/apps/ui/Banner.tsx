@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import React from 'react';
 import { styled } from 'twin.macro';
 
 import { CustomSwiper } from '../swiper/CustomSwiper';
@@ -22,22 +21,28 @@ export default function Banner({ imageSet, className }: BannerProps) {
         alt={image.alt}
         fill
         style={{
+          minWidth: 520,
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center center',
           objectFit: 'cover',
+          overflow: 'hidden',
         }}
       />
     </ImageWrapper>
   ));
 
-  return <CustomSwiper items={imageElements} />;
+  return (
+    <CustomSwiper
+      autoplay
+      items={imageElements}
+      tw="[box-shadow:  rgba(50, 50, 93, 0.15) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.2) 0px 3px 7px -3px;] [border-radius: 20px] overflow-hidden"
+    />
+  );
 }
 
 const ImageWrapper = styled.div`
   width: 100%;
   min-height: 100px;
   aspect-ratio: 1128 / 200;
-  box-shadow:
-    rgba(50, 50, 93, 0.15) 0px 6px 12px -2px,
-    rgba(0, 0, 0, 0.2) 0px 3px 7px -3px;
 `;
