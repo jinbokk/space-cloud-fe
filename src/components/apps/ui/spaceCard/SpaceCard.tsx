@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import { styled, theme } from 'twin.macro';
 
-import NoImage from './NoImage';
+import NoImage from '../NoImage';
 
 // TODO : 백엔드와 논의하여 프로퍼티 명세 후 수정 필요
-type SpaceCardProps = {
+export type SpaceCardProps = {
   imgSrc?: string;
   title?: string; // 공간명
   dong?: string; // 위치 (ex. 망원동)
