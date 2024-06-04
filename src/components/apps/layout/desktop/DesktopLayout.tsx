@@ -2,11 +2,12 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 
 import IsDesktop from './IsDesktop';
+import { paddingProps } from './Main';
 
 const DefaultLayout = dynamic(() => import('./DefaultLayout'));
 
 type Props = {
-  hideMenu?: boolean;
+  padding?: paddingProps;
   children: React.ReactNode;
 };
 

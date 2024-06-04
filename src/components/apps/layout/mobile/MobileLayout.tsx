@@ -2,11 +2,12 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 
 import IsMobile from './IsMobile';
+import { paddingProps } from './Main';
 
 const DefaultLayout = dynamic(() => import('./DefaultLayout'));
 
 type Props = {
-  hideFooter?: boolean;
+  padding?: paddingProps;
   children: React.ReactNode;
 };
 
