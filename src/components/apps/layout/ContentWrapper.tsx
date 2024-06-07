@@ -2,9 +2,10 @@ import { styled, theme } from 'twin.macro';
 
 type Props = {
   children: React.ReactNode;
+  className?: string;
 };
-export default function ContentWrapper({ children }: Props) {
-  return <Container>{children}</Container>;
+export default function ContentWrapper({ children, className }: Props) {
+  return <Container className={className}>{children}</Container>;
 }
 
 const Container = styled.div`

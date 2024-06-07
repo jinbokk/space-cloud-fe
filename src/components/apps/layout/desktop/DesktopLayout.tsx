@@ -9,12 +9,19 @@ const DefaultLayout = dynamic(() => import('./DefaultLayout'));
 type Props = {
   padding?: paddingProps;
   children: React.ReactNode;
+  hideFooter?: boolean;
 };
 
-export default function DesktopLayout({ children, ...props }: Props) {
+export default function DesktopLayout({
+  children,
+  hideFooter = false,
+  ...props
+}: Props) {
   return (
     <IsDesktop>
-      <DefaultLayout {...props}>{children}</DefaultLayout>
+      <DefaultLayout {...props} hideFooter={hideFooter}>
+        {children}
+      </DefaultLayout>
     </IsDesktop>
   );
 }

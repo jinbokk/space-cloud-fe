@@ -1,19 +1,45 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 import { styled, theme } from 'twin.macro';
 
 import Search from '../../ui/Search';
+import ContentWrapper from '../ContentWrapper';
 
 export default function Header() {
+  const [isSubHeaderOpen, setIsSubHeaderOpen] = useState(false);
+
   return (
-    <HeaderContainer>
-      <LeftMenu />
-      <LogoWrapper href="/">
-        <Logo src="/images/logo.svg" alt="logo" fill />
-      </LogoWrapper>
-      {/* TODO : Search 컴포넌트로 변경 필요 */}
-      <Search />
-    </HeaderContainer>
+    <>
+      <HeaderContainer>
+        <ContentWrapper tw="relative">
+          <LogoWrapper href="/">
+            <Logo src="/images/logo.svg" alt="logo" fill />
+          </LogoWrapper>
+          {/* TODO : Search 컴포넌트로 변경 필요 */}
+          <RightMenu>
+            {!isSubHeaderOpen ? (
+              <Search
+                readOnly
+                onClick={() => setIsSubHeaderOpen((prev) => !prev)}
+              />
+            ) : (
+              <CloseButton onClick={() => setIsSubHeaderOpen(false)}>
+                X
+              </CloseButton>
+            )}
+          </RightMenu>
+        </ContentWrapper>
+      </HeaderContainer>
+
+      {isSubHeaderOpen && (
+        <SubHeaderContainer>
+          <ContentWrapper>
+            <Search tw="w-full h-[44px]" />
+          </ContentWrapper>
+        </SubHeaderContainer>
+      )}
+    </>
   );
 }
 
@@ -21,24 +47,48 @@ const HeaderContainer = styled.header`
   position: fixed;
   top: 0;
   left: 0;
-  display: flex;
-  justify-content: space-between;
   width: 100%;
   height: ${theme`variables.apps.pc-header-height`};
   padding: 24px 0;
   z-index: 10000;
   background-color: white;
+  & > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 `;
 
-const LeftMenu = styled.div``;
+// const LeftMenu = styled.div`
+//   width: 20px;
+//   height: 16px;
+//   background-image: url(/images/icons/menu.svg);
+//   background-size: cover;
+//   margin-left: 8px;
+// `;
+
+const RightMenu = styled.div`
+  margin-left: auto;
+  margin-right: 8px;
+`;
 
 const LogoWrapper = styled(Link)`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 132px;
   height: 32px;
 `;
 
 const Logo = styled(Image)``;
+
+const SubHeaderContainer = styled.div`
+  height: ${theme`variables.apps.pc-sub-header-height`};
+`;
+
+const CloseButton = styled.button`
+  height: 33px;
+  padding: 0 0 0 16px;
+  font-weight: bolder;
+`;

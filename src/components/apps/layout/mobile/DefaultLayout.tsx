@@ -10,17 +10,19 @@ const Footer = dynamic(() => import('./Footer'));
 type Props = {
   padding?: paddingProps;
   children: React.ReactNode;
+  hideFooter?: boolean;
 };
 
 export default function DefaultLayout({
   padding = { top: '0', bottom: '0' },
   children,
+  hideFooter = false,
 }: Props) {
   return (
     <LayoutContainer>
       <Header />
       <Main padding={padding}>{children}</Main>
-      <Footer />
+      {!hideFooter && <Footer />}
     </LayoutContainer>
   );
 }

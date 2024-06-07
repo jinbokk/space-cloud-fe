@@ -9,12 +9,19 @@ const DefaultLayout = dynamic(() => import('./DefaultLayout'));
 type Props = {
   padding?: paddingProps;
   children: React.ReactNode;
+  hideFooter?: boolean;
 };
 
-export default function MobileLayout({ children, ...props }: Props) {
+export default function MobileLayout({
+  children,
+  hideFooter,
+  ...props
+}: Props) {
   return (
     <IsMobile>
-      <DefaultLayout {...props}>{children}</DefaultLayout>
+      <DefaultLayout {...props} hideFooter={hideFooter}>
+        {children}
+      </DefaultLayout>
     </IsMobile>
   );
 }
