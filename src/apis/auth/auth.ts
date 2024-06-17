@@ -54,10 +54,6 @@ export const postAuthLogin = async (
 ): Promise<AuthLoginResultType> => {
   const res = await pureAxios.post(`${API_ENDPOINTS.AUTH_LOGIN}`, param);
 
-  if (res.status !== 204) {
-    throw res.data.msg;
-  }
-
   if (res.data.accessToken) {
     useAuthStore.setState({
       accessToken: res.data.accessToken,

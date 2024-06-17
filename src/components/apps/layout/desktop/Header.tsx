@@ -28,6 +28,17 @@ export default function Header() {
                 X
               </CloseButton>
             )}
+            <UserIcon href="/login">
+              <Image
+                fill
+                src="/images/icons/login/user_profile_default.png"
+                alt="profile"
+                style={{
+                  position: 'absolute',
+                  objectFit: 'contain',
+                }}
+              />
+            </UserIcon>
           </RightMenu>
         </ContentWrapper>
       </HeaderContainer>
@@ -68,8 +79,17 @@ const HeaderContainer = styled.header`
 // `;
 
 const RightMenu = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin-left: auto;
   margin-right: 8px;
+`;
+
+const UserIcon = styled(Link)`
+  position: relative;
+  width: 25px;
+  height: 25px;
 `;
 
 const LogoWrapper = styled(Link)`

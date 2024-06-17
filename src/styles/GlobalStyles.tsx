@@ -24,7 +24,7 @@ const customStyles = css`
 const GlobalStyles = () => (
   <>
     <BaseStyles />
-    <Global styles={customStyles} />
+    <Global styles={{ ...customStyles }} />
   </>
 );
 

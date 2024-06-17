@@ -1,8 +1,6 @@
 import { useMediaQuery } from 'react-responsive';
 import { styled, theme } from 'twin.macro';
 
-import { useAuthLoginMutation } from '@/apis/auth';
-
 import { BANNER_IMAGE_SET, DUMMY_SPACE_DATA } from '@/data/constant';
 
 import ContentWrapper from '../../layout/ContentWrapper';
@@ -14,18 +12,8 @@ export default function Home() {
     query: `(min-width: ${theme`screens.lg`})`,
   });
 
-  const authLoginMutation = useAuthLoginMutation();
-
-  const loginTest = () => {
-    authLoginMutation.mutate({
-      email: 'test@naver.com',
-      password: '!234qwer',
-    });
-  };
-
   return (
     <HomeConatiner>
-      <div onClick={() => loginTest()}>로그인 테스트</div>
       <Section>
         <ContentWrapper>
           <Banner imageSet={BANNER_IMAGE_SET} />
