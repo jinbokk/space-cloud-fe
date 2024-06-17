@@ -1,8 +1,7 @@
-import { apiAxios, pureAxios } from '@/apis/axios';
-
 import { useAuthStore } from '@/store/authStore';
 
 import API_ENDPOINTS from '../api-endpoints';
+import pureAxios from '../axios/pureAxios';
 import {
   AuthLoginParamsType,
   AuthLoginResultType,
@@ -18,7 +17,7 @@ import {
 export const refreshAccessToken = async (
   params: AuthRefreshTokenParamsType,
 ): Promise<AuthRefreshTokenResultType> => {
-  const res = await apiAxios.post(`${API_ENDPOINTS.AUTH_TOKENS}`, params);
+  const res = await pureAxios.post(`${API_ENDPOINTS.AUTH_TOKENS}`, params);
 
   if (res.status === 204) {
     useAuthStore.setState({
@@ -53,7 +52,7 @@ export const postAuthSignUp = async (
 export const postAuthLogin = async (
   param: AuthLoginParamsType,
 ): Promise<AuthLoginResultType> => {
-  const res = await apiAxios.post(`${API_ENDPOINTS.AUTH_LOGIN}`, param);
+  const res = await pureAxios.post(`${API_ENDPOINTS.AUTH_LOGIN}`, param);
 
   if (res.status !== 204) {
     throw res.data.msg;
