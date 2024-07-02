@@ -17,6 +17,7 @@ export interface AuthSignupParamsType {
   email: string;
   password: string;
   passwordCheck: string;
+  captchaToken: string;
 }
 /**
  * Auth 회원가입 응답 타입
