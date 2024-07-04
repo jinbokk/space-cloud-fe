@@ -41,7 +41,10 @@ export default function Recaptcha({ className }: Props) {
   );
 }
 
-const RecaptchaContainer = styled.div``;
+const RecaptchaContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 const ErrorWrapper = styled.div`
   font-size: 14px;
