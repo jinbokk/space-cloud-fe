@@ -45,3 +45,26 @@ export interface AuthLoginResultType {
   refreshToken: string;
   refreshTokenExpired: string;
 }
+
+////////////////////////////////////////////////////////////////
+// Auth 이메일 인증코드 발급 API
+////////////////////////////////////////////////////////////////
+export interface AuthEmailVerificationParamsType {
+  email: string;
+}
+export interface AuthEmailVerificationResultType {
+  code: string;
+  msg: string;
+}
+
+////////////////////////////////////////////////////////////////
+// Auth 이메일 인증코드 인증 API
+////////////////////////////////////////////////////////////////
+export interface AuthEmailVerificationVerifyParamsType {
+  email: string;
+  code: 'string';
+}
+export interface AuthEmailVerificationVerifyResultType {
+  code: string;
+  msg: string;
+}

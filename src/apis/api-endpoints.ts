@@ -5,6 +5,7 @@ const API_ENDPOINTS = {
   AUTH_LOGIN: 'auth/login',
   AUTH_LOGOUT: 'auth/logout',
   AUTH_OAUTH2: 'auth/tokens-by-cookie',
+  AUTH_EMAIL_VERIFICATION: 'auth/email-verification',
 };
 
 export default API_ENDPOINTS;

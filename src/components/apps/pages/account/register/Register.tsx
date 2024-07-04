@@ -1,7 +1,12 @@
+import { useEffect, useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { styled } from 'twin.macro';
 
-import { useAuthSignupMutation } from '@/apis/auth';
+import {
+  useAuthEmailVerificationMutation,
+  useAuthEmailVerificationVerifyMutation,
+  useAuthSignupMutation,
+} from '@/apis/auth';
 import { AuthSignupParamsType } from '@/apis/auth/types';
 
 import Recaptcha from '@/components/apps/auth/recaptcha/Recaptcha';
@@ -10,7 +15,34 @@ import CommonLogin from '@/components/apps/ui/CommonLogin';
 import Button from '@/components/apps/ui/button/Button';
 
 export default function Register() {
+  const [runTimer, setRunTimer] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(180);
+  const [emailverification, setEmailVerification] = useState(false);
+
+  // 타이머 이펙트
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (runTimer) {
+      timer = setInterval(() => {
+        setTimeLeft((prevTime) => {
+          if (prevTime <= 1) {
+            clearInterval(timer);
+            setRunTimer(false);
+            return 180;
+          }
+          return prevTime - 1;
+        });
+      }, 1000);
+    }
+    return () => {
+      clearInterval(timer);
+    };
+  }, [runTimer]);
+
   const authSignUpMutation = useAuthSignupMutation();
+  const authEmailVerificationMutation = useAuthEmailVerificationMutation();
+  const authEmailVerificationVerifyMutation =
+    useAuthEmailVerificationVerifyMutation();
 
   const methods = useForm<AuthSignupParamsType>();
 
@@ -23,6 +55,7 @@ export default function Register() {
 
   const onSubmit: SubmitHandler<AuthSignupParamsType> = (data) => {
     const { name, email, password, passwordCheck, captchaToken } = data;
+
     authSignUpMutation.mutate(
       {
         name,
@@ -46,6 +79,41 @@ export default function Register() {
     window.alert('양식을 다시 확인해주세요');
   };
 
+  const sendEmailVerificationCode = () => {
+    authEmailVerificationMutation.mutate(
+      {
+        email: watch('email'),
+      },
+      {
+        onSuccess: () => {
+          console.log('이메일 인증 메일 발송 성공');
+          setRunTimer(true);
+        },
+        onError: (error) => {
+          console.log('이메일 인증 메일 발송 실패', error);
+        },
+      },
+    );
+  };
+
+  const verifyEmail = () => {
+    authEmailVerificationVerifyMutation.mutate(
+      {
+        email: watch('email'),
+        code: watch('email_verification' as any),
+      },
+      {
+        onSuccess: () => {
+          console.log('이메일 인증 성공');
+          setEmailVerification(true);
+        },
+        onError: (error) => {
+          console.log('이메일 인증 실패', error);
+        },
+      },
+    );
+  };
+
   return (
     <FormProvider {...methods}>
       <RegisterContainer>
@@ -62,14 +130,50 @@ export default function Register() {
                   placeholder="닉네임"
                   errors={errors}
                 />
-                <InputForm
-                  {...register('email', {
-                    required: '이메일을 확인해 주세요',
-                  })}
-                  type="text"
-                  placeholder="이메일"
-                  errors={errors}
-                />
+                <EmailWrapper>
+                  <InputForm
+                    {...register('email', {
+                      required: '이메일을 확인해 주세요',
+                    })}
+                    type="text"
+                    placeholder="이메일"
+                    errors={errors}
+                    disabled={runTimer}
+                  />
+                  {runTimer ? (
+                    <Timer timeLeft={timeLeft} />
+                  ) : (
+                    <Button
+                      type="button"
+                      variant="primary"
+                      tw="w-[150px]"
+                      onClick={sendEmailVerificationCode}
+                      disabled={runTimer}
+                    >
+                      이메일 인증
+                    </Button>
+                  )}
+                </EmailWrapper>
+                {runTimer && (
+                  <EmailWrapper>
+                    <InputForm
+                      {...register('email_verification' as any, {
+                        required: '이메일을 확인해 주세요',
+                      })}
+                      type="text"
+                      placeholder="이메일"
+                    />
+                    <Button
+                      type="button"
+                      variant="primary"
+                      tw="w-[150px]"
+                      onClick={verifyEmail}
+                      disabled={emailverification}
+                    >
+                      {emailverification ? '인증완료' : '인증하기'}
+                    </Button>
+                  </EmailWrapper>
+                )}
                 <InputForm
                   {...register('password', {
                     required: '비밀번호를 확인해 주세요',
@@ -91,7 +195,9 @@ export default function Register() {
                 />
                 <Recaptcha tw="mt-[9px]" />
               </InputFormWrapper>
-              <Button type="submit">회원가입</Button>
+              <Button type="submit" tw="mt-[24px]">
+                회원가입
+              </Button>
             </form>
           }
         />
@@ -99,6 +205,21 @@ export default function Register() {
     </FormProvider>
   );
 }
+
+// 타이머 컴포넌트
+const Timer = ({ timeLeft }: { timeLeft: number }) => {
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+
+  return (
+    <TimerContainer>
+      <div>유효시간 3분 입니다</div>
+      <div>
+        남은시간 {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+      </div>
+    </TimerContainer>
+  );
+};
 
 const RegisterContainer = styled.div`
   display: flex;
@@ -114,4 +235,20 @@ const InputFormWrapper = styled.div`
   gap: 15px;
   padding-bottom: 24px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+`;
+
+const EmailWrapper = styled.div`
+  display: flex;
+  gap: 20px;
+`;
+
+const TimerContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  width: 150px;
+  font-size: 13px;
+  white-space: nowrap;
+  color: coral;
 `;

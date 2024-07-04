@@ -3,6 +3,10 @@ import { useAuthStore } from '@/store/authStore';
 import API_ENDPOINTS from '../api-endpoints';
 import pureAxios from '../axios/pureAxios';
 import {
+  AuthEmailVerificationParamsType,
+  AuthEmailVerificationResultType,
+  AuthEmailVerificationVerifyParamsType,
+  AuthEmailVerificationVerifyResultType,
   AuthLoginParamsType,
   AuthLoginResultType,
   AuthRefreshTokenParamsType,
@@ -59,6 +63,34 @@ export const postAuthLogin = async (
       accessToken: res.data.accessToken,
     });
   }
+
+  return res.data;
+};
+
+/**
+ * Auth 회원가입 이메일 인증코드 발급 API
+ */
+export const postAuthEmailVerification = async (
+  param: AuthEmailVerificationParamsType,
+): Promise<AuthEmailVerificationResultType> => {
+  const res = await pureAxios.post(
+    `${API_ENDPOINTS.AUTH_EMAIL_VERIFICATION}`,
+    param,
+  );
+
+  return res.data;
+};
+
+/**
+ * Auth 회원가입 이메일 인증코드 인증 API
+ */
+export const postAuthEmailVerificationVerify = async (
+  param: AuthEmailVerificationVerifyParamsType,
+): Promise<AuthEmailVerificationVerifyResultType> => {
+  const res = await pureAxios.post(
+    `${API_ENDPOINTS.AUTH_EMAIL_VERIFICATION}/verify`,
+    param,
+  );
 
   return res.data;
 };
