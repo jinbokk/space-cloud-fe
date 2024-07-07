@@ -43,6 +43,7 @@ export default function Header() {
               <Image
                 fill
                 src="/images/icons/login/user_profile_default.png"
+                sizes="25px"
                 alt="profile"
                 style={{
                   position: 'absolute',

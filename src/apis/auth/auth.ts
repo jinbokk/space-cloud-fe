@@ -24,14 +24,12 @@ export const refreshAccessToken = async (
   const res = await pureAxios.post(`${API_ENDPOINTS.AUTH_TOKENS}`, params);
 
   if (res.status === 204) {
+    console.log('authStore SetState');
     useAuthStore.setState({
       accessToken: res.data.accessToken,
-      // TODO: 유저 정보가 없어서 임시로 추가
-      user: res.data.user,
     });
   }
 
-  // TODO : 에러핸들링 코드 추가
   return res.data;
 };
 
@@ -91,6 +89,17 @@ export const postAuthEmailVerificationVerify = async (
     `${API_ENDPOINTS.AUTH_EMAIL_VERIFICATION}/verify`,
     param,
   );
+
+  return res.data;
+};
+
+/**
+ * Auth AccessToken 재발급 API
+ */
+export const postAuthRefreshToken = async (
+  param: AuthRefreshTokenParamsType,
+): Promise<AuthRefreshTokenResultType> => {
+  const res = await pureAxios.post(`${API_ENDPOINTS.AUTH_TOKENS}`, param);
 
   return res.data;
 };

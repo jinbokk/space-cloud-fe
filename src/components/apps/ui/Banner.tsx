@@ -17,9 +17,11 @@ export default function Banner({ imageSet, className }: BannerProps) {
   const imageElements = imageSet.map((image, index) => (
     <ImageWrapper key={index} className={className}>
       <Image
+        priority
         src={image.src}
         alt={image.alt}
         fill
+        sizes="50vw"
         style={{
           minWidth: 520,
           backgroundRepeat: 'no-repeat',
@@ -42,6 +44,7 @@ export default function Banner({ imageSet, className }: BannerProps) {
 }
 
 const ImageWrapper = styled.div`
+  position: relative;
   width: 100%;
   min-height: 100px;
   aspect-ratio: 1128 / 200;

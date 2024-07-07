@@ -17,9 +17,10 @@ export default function DefaultLayout({
   padding = { top: '0', bottom: '0' },
   children,
   hideFooter = false,
+  ...props
 }: Props) {
   return (
-    <LayoutContainer>
+    <LayoutContainer {...props}>
       <Header />
       <Main padding={padding}>{children}</Main>
       {!hideFooter && <Footer />}

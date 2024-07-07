@@ -7,12 +7,17 @@ import {
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useState } from 'react';
+import { useEffect } from 'react';
+import { useCookies } from 'react-cookie';
+
+import { useAuthStore } from '@/store/authStore';
 
 import '@/styles/base/font.css';
 import '@/styles/base/reset.css';
 import '@/styles/globals.css';
 
 import GlobalStyles from '../styles/GlobalStyles';
+import PrivateRoute from './PrivateRoute';
 
 interface AppProps {
   Component: any;
@@ -22,6 +27,20 @@ interface AppProps {
 const cache = createCache({ key: 'css', prepend: true });
 
 const App = ({ Component, pageProps }: AppProps) => {
+  const [cookies] = useCookies(['accessToken']);
+  const { setAccessToken, clear } = useAuthStore();
+
+  useEffect(() => {
+    if (cookies.accessToken) {
+      setAccessToken(cookies.accessToken);
+    } else {
+      clear();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const authenticationRequired = Component.authenticationRequired ?? true;
+
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -45,7 +64,12 @@ const App = ({ Component, pageProps }: AppProps) => {
       <HydrationBoundary state={pageProps.dehydratedState}>
         <CacheProvider value={cache}>
           <GlobalStyles />
-          <Component {...pageProps} />
+          {authenticationRequired && (
+            <PrivateRoute>
+              <Component {...pageProps} />
+            </PrivateRoute>
+          )}
+          {!authenticationRequired && <Component {...pageProps} />}
         </CacheProvider>
       </HydrationBoundary>
       <ReactQueryDevtools initialIsOpen={false} />

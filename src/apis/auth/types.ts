@@ -5,8 +5,10 @@ export interface AuthRefreshTokenParamsType {
   refreshToken: string;
 }
 export interface AuthRefreshTokenResultType {
-  code: string;
-  msg: string;
+  accessToken: string;
+  accessTokenExpired: string;
+  refreshToken: string;
+  refreshTokenExpired: string;
 }
 
 ////////////////////////////////////////////////////////////////

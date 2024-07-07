@@ -7,6 +7,8 @@ import { styled } from 'twin.macro';
 import { useAuthLoginMutation } from '@/apis/auth';
 import { AuthLoginParamsType } from '@/apis/auth/types';
 
+import { useAuthStore } from '@/store/authStore';
+
 import CheckboxForm from '../../form/CheckboxForm';
 import InputForm from '../../form/InputForm';
 import CommonLogin from '../../ui/CommonLogin';
@@ -18,6 +20,8 @@ export default function Login() {
   const authLoginMutation = useAuthLoginMutation();
 
   const [, setCookie] = useCookies(['accessToken', 'refreshToken']);
+
+  const { setAccessToken } = useAuthStore();
 
   const methods = useForm<AuthLoginParamsType>();
 
@@ -64,6 +68,8 @@ export default function Login() {
             path: '/',
             expires: refreshTokenExpiresLocal,
           });
+
+          setAccessToken(res.accessToken);
 
           router.replace('/');
         },

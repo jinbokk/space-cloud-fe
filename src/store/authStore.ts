@@ -2,10 +2,6 @@ import { create } from 'zustand';
 
 type State = {
   accessToken: string | null;
-  user: {
-    email: string | null;
-    name: string | null;
-  };
 };
 
 type Actions = {
@@ -17,10 +13,6 @@ type Actions = {
 
 const initialState = {
   accessToken: null,
-  user: {
-    email: null,
-    name: null,
-  },
 };
 
 export const useAuthStore = create<State & Actions>((set, get) => ({

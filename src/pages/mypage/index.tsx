@@ -1,19 +1,17 @@
 import DesktopLayout from '@/components/apps/layout/desktop/DesktopLayout';
 import MobileLayout from '@/components/apps/layout/mobile/MobileLayout';
-import Home from '@/components/apps/pages/home/Home';
+import Mypage from '@/components/apps/pages/mypage/Mypage';
 
-export default function HomePage() {
+export default function MypagePage() {
   return (
     <>
-      <DesktopLayout padding={{ top: '0', bottom: '60px' }}>
-        <Home />
+      <DesktopLayout padding={{ top: '0', bottom: '60px' }} tw="bg-[#f6f6f6]">
+        <Mypage />
       </DesktopLayout>
 
       <MobileLayout padding={{ top: '0', bottom: '60px' }}>
-        <Home />
+        <Mypage />
       </MobileLayout>
     </>
   );
 }
-
-HomePage.authenticationRequired = false;
