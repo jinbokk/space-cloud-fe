@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { styled, theme } from 'twin.macro';
 
 import Search from '../../ui/Search';
@@ -8,14 +9,24 @@ import ContentWrapper from '../ContentWrapper';
 
 export default function Header() {
   const [isSubHeaderOpen, setIsSubHeaderOpen] = useState(false);
+  const [cookies] = useCookies(['accessToken']);
+
+  const isLoggedIn = !!cookies;
 
   return (
     <>
       <HeaderContainer>
         <ContentWrapper tw="relative">
-          <LogoWrapper href="/">
-            <Logo src="/images/logo.svg" alt="logo" fill />
-          </LogoWrapper>
+          {isLoggedIn ? (
+            <LogoWrapper href="/">
+              <Logo src="/images/logo.svg" alt="logo" fill />
+            </LogoWrapper>
+          ) : (
+            <LogoWrapper href="/">
+              <Logo src="/images/logo.svg" alt="logo" fill />
+            </LogoWrapper>
+          )}
+
           {/* TODO : Search 컴포넌트로 변경 필요 */}
           <RightMenu>
             {!isSubHeaderOpen ? (
@@ -28,7 +39,7 @@ export default function Header() {
                 X
               </CloseButton>
             )}
-            <UserIcon href="/login">
+            <UserIcon href={isLoggedIn ? '/mypage' : '/login'}>
               <Image
                 fill
                 src="/images/icons/login/user_profile_default.png"
@@ -36,6 +47,9 @@ export default function Header() {
                 style={{
                   position: 'absolute',
                   objectFit: 'contain',
+                  filter: isLoggedIn
+                    ? 'brightness(0) saturate(100%) invert(35%) sepia(94%) saturate(2166%) hue-rotate(192deg) brightness(92%) contrast(102%)'
+                    : 'none',
                 }}
               />
             </UserIcon>

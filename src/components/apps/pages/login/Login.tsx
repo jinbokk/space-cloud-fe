@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useCookies } from 'react-cookie';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { styled } from 'twin.macro';
 
@@ -11,7 +13,11 @@ import CommonLogin from '../../ui/CommonLogin';
 import Button from '../../ui/button/Button';
 
 export default function Login() {
+  const router = useRouter();
+
   const authLoginMutation = useAuthLoginMutation();
+
+  const [, setCookie] = useCookies(['accessToken', 'refreshToken']);
 
   const methods = useForm<AuthLoginParamsType>();
 
@@ -26,11 +32,43 @@ export default function Login() {
     authLoginMutation.mutate(
       { email, password },
       {
-        onSuccess: () => {
-          console.log('로그인 성공');
+        onSuccess: (res) => {
+          // TODO : 서버에서 만료시간 응답값 수정 필요
+          // 서버에서 받은 UTC 시간 값
+          const accessTokenExpiresUTC = new Date(res.accessTokenExpired);
+          const refreshTokenExpiresUTC = new Date(res.refreshTokenExpired);
+
+          // 12시간 추가
+          accessTokenExpiresUTC.setHours(accessTokenExpiresUTC.getHours() + 12);
+          refreshTokenExpiresUTC.setHours(
+            refreshTokenExpiresUTC.getHours() + 12,
+          );
+
+          // 로컬 시간으로 변환
+          const accessTokenExpiresLocal = new Date(
+            // eslint-disable-next-line prettier/prettier
+            accessTokenExpiresUTC.getTime() -
+              accessTokenExpiresUTC.getTimezoneOffset() * 60000,
+          );
+          const refreshTokenExpiresLocal = new Date(
+            // eslint-disable-next-line prettier/prettier
+            refreshTokenExpiresUTC.getTime() -
+              refreshTokenExpiresUTC.getTimezoneOffset() * 60000,
+          );
+
+          setCookie('accessToken', res.accessToken, {
+            path: '/',
+            expires: accessTokenExpiresLocal,
+          });
+          setCookie('refreshToken', res.refreshToken, {
+            path: '/',
+            expires: refreshTokenExpiresLocal,
+          });
+
+          router.replace('/');
         },
-        onError: (error) => {
-          console.log('로그인 실패', error);
+        onError: () => {
+          window.alert('로그인에 실패했습니다');
         },
       },
     );
@@ -42,7 +80,7 @@ export default function Login() {
         <CommonLogin
           title="게스트 로그인"
           contents={
-            <form onSubmit={() => handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <InputFormWrapper>
                 <InputForm
                   {...register('email', {

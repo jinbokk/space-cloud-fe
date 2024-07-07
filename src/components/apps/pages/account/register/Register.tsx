@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { styled } from 'twin.macro';
@@ -15,6 +16,7 @@ import CommonLogin from '@/components/apps/ui/CommonLogin';
 import Button from '@/components/apps/ui/button/Button';
 
 export default function Register() {
+  const route = useRouter();
   const [runTimer, setRunTimer] = useState(false);
   const [timeLeft, setTimeLeft] = useState(180);
   const [emailverification, setEmailVerification] = useState(false);
@@ -66,10 +68,11 @@ export default function Register() {
       },
       {
         onSuccess: () => {
-          console.log('로그인 성공');
+          window.alert('회원가입에 성공했습니다');
+          route.replace('/');
         },
-        onError: (error) => {
-          console.log('로그인 실패', error);
+        onError: () => {
+          window.alert('회원가입에 실패했습니다');
         },
       },
     );
@@ -86,11 +89,10 @@ export default function Register() {
       },
       {
         onSuccess: () => {
-          console.log('이메일 인증 메일 발송 성공');
           setRunTimer(true);
         },
-        onError: (error) => {
-          console.log('이메일 인증 메일 발송 실패', error);
+        onError: () => {
+          window.alert('이메일 인증 메일 발송에 실패했습니다.');
         },
       },
     );
