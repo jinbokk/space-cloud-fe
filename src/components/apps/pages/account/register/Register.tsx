@@ -83,14 +83,12 @@ export default function Register() {
   };
 
   const sendEmailVerificationCode = () => {
+    setRunTimer(true);
     authEmailVerificationMutation.mutate(
       {
         email: watch('email'),
       },
       {
-        onSuccess: () => {
-          setRunTimer(true);
-        },
         onError: () => {
           window.alert('이메일 인증 메일 발송에 실패했습니다.');
         },
@@ -106,11 +104,12 @@ export default function Register() {
       },
       {
         onSuccess: () => {
-          console.log('이메일 인증 성공');
+          window.alert('이메일 인증 성공');
           setEmailVerification(true);
+          setRunTimer(false);
         },
-        onError: (error) => {
-          console.log('이메일 인증 실패', error);
+        onError: () => {
+          window.alert('이메일 인증 실패');
         },
       },
     );
@@ -140,30 +139,32 @@ export default function Register() {
                     type="text"
                     placeholder="이메일"
                     errors={errors}
-                    disabled={runTimer}
+                    disabled={runTimer || emailverification}
                   />
                   {runTimer ? (
                     <Timer timeLeft={timeLeft} />
+                  ) : emailverification ? (
+                    <div tw="flex items-center shrink-0 pr-2">✅</div>
                   ) : (
                     <Button
                       type="button"
                       variant="primary"
                       tw="w-[150px]"
                       onClick={sendEmailVerificationCode}
-                      disabled={runTimer}
+                      disabled={emailverification || runTimer}
                     >
-                      이메일 인증
+                      {emailverification ? '인증 완료' : '인증코드 발송'}
                     </Button>
                   )}
                 </EmailWrapper>
-                {runTimer && (
+                {!emailverification && runTimer && (
                   <EmailWrapper>
                     <InputForm
                       {...register('email_verification' as any, {
-                        required: '이메일을 확인해 주세요',
+                        required: '인증코드를 다시 확인해 주세요',
                       })}
                       type="text"
-                      placeholder="이메일"
+                      placeholder="메일로 전송된 인증코드를 입력해 주세요"
                     />
                     <Button
                       type="button"
@@ -172,7 +173,7 @@ export default function Register() {
                       onClick={verifyEmail}
                       disabled={emailverification}
                     >
-                      {emailverification ? '인증완료' : '인증하기'}
+                      인증하기
                     </Button>
                   </EmailWrapper>
                 )}
@@ -215,9 +216,8 @@ const Timer = ({ timeLeft }: { timeLeft: number }) => {
 
   return (
     <TimerContainer>
-      <div>유효시간 3분 입니다</div>
       <div>
-        남은시간 {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+        남은 시간 {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
       </div>
     </TimerContainer>
   );

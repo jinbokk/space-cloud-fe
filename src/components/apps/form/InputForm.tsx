@@ -39,7 +39,6 @@ const InputFormContainer = styled.div`
 
 const InputFormWrapper = styled.div`
   width: 100%;
-  padding: 0 16px;
   height: 48px;
   border: 1px solid #e5e5e5;
 `;
@@ -47,6 +46,7 @@ const InputFormWrapper = styled.div`
 const InputFormElement = styled.input`
   width: 100%;
   height: 100%;
+  padding: 0 16px;
 `;
 
 const ErrorWrapper = styled.div`

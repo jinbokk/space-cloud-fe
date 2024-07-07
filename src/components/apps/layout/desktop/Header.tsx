@@ -11,7 +11,7 @@ export default function Header() {
   const [isSubHeaderOpen, setIsSubHeaderOpen] = useState(false);
   const [cookies] = useCookies(['accessToken']);
 
-  const isLoggedIn = !!cookies;
+  const isLoggedIn = Boolean(cookies.accessToken);
 
   return (
     <>
