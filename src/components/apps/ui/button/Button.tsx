@@ -1,7 +1,7 @@
 import React from 'react';
 import { css, styled } from 'twin.macro';
 
-type VariantType = 'primary' | 'secondary';
+type VariantType = 'primary' | 'secondary' | 'tertiary';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: VariantType;
@@ -30,6 +30,16 @@ const ButtonStyles = {
     border-radius: 5px;
     &:hover {
       background: #ffd014;
+      color: white;
+      transition: 0.2s;
+    }
+  `,
+  tertiary: css`
+    background: white;
+    border: 1px solid firebrick;
+    border-radius: 5px;
+    &:hover {
+      background: firebrick;
       color: white;
       transition: 0.2s;
     }

@@ -8,3 +8,11 @@ export interface UserInfoResultType {
   role: string;
   isTotpEnabled: boolean;
 }
+
+////////////////////////////////////////////////////////////////
+// user 비밀번호 변경 API
+////////////////////////////////////////////////////////////////
+export interface UserChangePasswordParamsType {
+  oldPassword: string;
+  newPassword: string;
+}

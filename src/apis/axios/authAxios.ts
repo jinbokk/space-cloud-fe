@@ -36,7 +36,6 @@ function onRequest(
 
   // 토큰 셋팅
   const accessToken = useAuthStore.getState().accessToken;
-
   if (accessToken) {
     config.headers = {
       ...config.headers,
@@ -61,7 +60,7 @@ function onResponse(response: AxiosResponse): AxiosResponse {
 
   logOnDev(`🚀 [API] ${method?.toUpperCase()} ${url} | Response ${status}`);
 
-  if (status === 204) {
+  if (status === 204 || status === 200) {
     return response;
   } else {
     // TODO: 백엔드 에러 코드에 따른 처리 필요

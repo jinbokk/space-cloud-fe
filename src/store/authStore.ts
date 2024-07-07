@@ -7,7 +7,6 @@ type State = {
 type Actions = {
   setAccessToken: (token: string) => void;
   getAccessToken: () => string;
-
   clear: () => void;
 };
 

@@ -98,3 +98,12 @@
     url('/assets/fonts/Pretendard/Pretendard-Thin.subset.woff2') format('woff2'),
     url('/assets/fonts/Pretendard/Pretendard-Thin.subset.woff') format('woff');
 }
+
+@font-face {
+  font-family: 'NanumGothic';
+  font-weight: 300;
+  font-display: swap;
+  src:
+    url('/assets/fonts/NanumGothic/NanumGothic.woff2') format('woff2'),
+    url('/assets/fonts/NanumGothic/NanumGothic.woff') format('woff');
+}

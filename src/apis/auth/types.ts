@@ -21,18 +21,6 @@ export interface AuthSignupParamsType {
   passwordCheck: string;
   captchaToken: string;
 }
-/**
- * Auth 회원가입 응답 타입
- * - 204	로그인 성공
- * - P1 401, 파라미터가 비어 있거나 NULL인 경우
- * - U4 401, 이메일이 중복된 경우
- * - U5 401, 패스워드가 일치하지 않는 경우
- * - U6 401, 패스워드가 4자리 미만인 경우
- */
-export interface AuthSignupResultType {
-  code: string;
-  msg: string;
-}
 
 ////////////////////////////////////////////////////////////////
 // Auth 로그인 API
@@ -49,14 +37,17 @@ export interface AuthLoginResultType {
 }
 
 ////////////////////////////////////////////////////////////////
+// Auth 로그아웃 API
+////////////////////////////////////////////////////////////////
+export interface AuthLogoutParamsType {
+  refreshToken: string;
+}
+
+////////////////////////////////////////////////////////////////
 // Auth 이메일 인증코드 발급 API
 ////////////////////////////////////////////////////////////////
 export interface AuthEmailVerificationParamsType {
   email: string;
-}
-export interface AuthEmailVerificationResultType {
-  code: string;
-  msg: string;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -66,7 +57,15 @@ export interface AuthEmailVerificationVerifyParamsType {
   email: string;
   code: 'string';
 }
-export interface AuthEmailVerificationVerifyResultType {
-  code: string;
-  msg: string;
+
+////////////////////////////////////////////////////////////////
+// Auth Totp API
+////////////////////////////////////////////////////////////////
+export interface AuthTotpQRParamsType {
+  email: string;
+}
+
+export interface AuthTotpVerificationParamsType {
+  email: string;
+  code: 0;
 }

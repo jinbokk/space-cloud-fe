@@ -5,11 +5,14 @@ import Mypage from '@/components/apps/pages/mypage/Mypage';
 export default function MypagePage() {
   return (
     <>
-      <DesktopLayout padding={{ top: '0', bottom: '60px' }} tw="bg-[#f6f6f6]">
+      <DesktopLayout
+        padding={{ top: '60px', bottom: '60px' }}
+        tw="bg-[#f6f6f6]"
+      >
         <Mypage />
       </DesktopLayout>
 
-      <MobileLayout padding={{ top: '0', bottom: '60px' }}>
+      <MobileLayout padding={{ top: '60px', bottom: '60px' }}>
         <Mypage />
       </MobileLayout>
     </>

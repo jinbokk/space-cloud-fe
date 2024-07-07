@@ -1,3 +1,4 @@
 module.exports = {
-  pretendard: ['Pretendard', 'sans-serif'],
+  NanumGothic: ['NanumGothic', 'sans-serif'],
+  Pretendard: ['Pretendard', 'sans-serif'],
 };

@@ -15,7 +15,7 @@ const customStyles = css`
     background-color: white;
     -webkit-tap-highlight-color: transparent;
     overflow: auto;
-    font-family: 'Nanum Gothic', 'Pretendard', Helvetica, 'Apple SD Gothic Neo',
+    font-family: 'NanumGothic', 'Pretendard', Helvetica, 'Apple SD Gothic Neo',
       Sans-serif !important;
     ${tw`antialiased`}
   }
