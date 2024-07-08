@@ -34,7 +34,11 @@ export const deleteUserInfo = async (): Promise<UserInfoResultType> => {
 export const patchUserChangePassword = async (
   params: UserChangePasswordParamsType,
 ): Promise<CommonResultType> => {
-  const res = await authAxios.patch(`${API_ENDPOINTS.USER}`, params);
+  const res = await authAxios.patch(
+    `${API_ENDPOINTS.USER}/password
+`,
+    params,
+  );
 
   if (res.status !== 204) {
     throw res.data.msg;
