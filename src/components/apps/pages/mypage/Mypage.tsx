@@ -67,6 +67,7 @@ export default function Mypage() {
   };
 
   const handleTotp = (e: any, set: boolean) => {
+    e.preventDefault();
     if (set) {
       userTotpQRMutation.mutate(
         { email: data?.email as string },

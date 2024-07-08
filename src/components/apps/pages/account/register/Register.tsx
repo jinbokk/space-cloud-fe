@@ -90,6 +90,7 @@ export default function Register() {
       },
       {
         onError: () => {
+          setRunTimer(false);
           window.alert('이메일 인증 메일 발송에 실패했습니다.');
         },
       },

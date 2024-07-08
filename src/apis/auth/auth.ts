@@ -1,6 +1,7 @@
 import { useAuthStore } from '@/store/authStore';
 
 import API_ENDPOINTS from '../api-endpoints';
+import { authAxios } from '../axios';
 import pureAxios from '../axios/pureAxios';
 import { CommonResultType } from '../types';
 import {
@@ -122,7 +123,7 @@ export const postAuthRefreshToken = async (
 export const postAuthTotpQR = async (
   params: AuthTotpQRParamsType,
 ): Promise<CommonResultType> => {
-  const res = await pureAxios.post(`${API_ENDPOINTS.AUTH_TOTP}/qr`, { params });
+  const res = await authAxios.post(`${API_ENDPOINTS.AUTH_TOTP}/qr`, params);
 
   return res.data;
 };
@@ -133,7 +134,7 @@ export const postAuthTotpQR = async (
 export const postAuthTotpVerify = async (
   params: AuthTotpVerificationParamsType,
 ): Promise<CommonResultType> => {
-  const res = await pureAxios.post(`${API_ENDPOINTS.AUTH_TOTP}/verify`, params);
+  const res = await authAxios.post(`${API_ENDPOINTS.AUTH_TOTP}/verify`, params);
 
   return res.data;
 };
