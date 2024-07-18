@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 import { styled } from 'twin.macro';
 
@@ -47,10 +48,15 @@ const Keyword = styled.div`
 `;
 
 const SubCategoryItem: React.FC<SubCategoryItemProps> = ({ name }) => {
+  const router = useRouter();
   const iconUrl = `/images/icons/${iconMapping[name]}.svg`;
 
+  const handleClick = () => {
+    router.push(`/search?q=${name}&page=1`);
+  };
+
   return (
-    <Button>
+    <Button onClick={handleClick}>
       <Icon iconUrl={iconUrl} />
       <Keyword>{name}</Keyword>
     </Button>
