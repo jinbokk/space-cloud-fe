@@ -10,6 +10,10 @@ const API_ENDPOINTS = {
 
   // user API
   USER: '/user',
+
+  // spaces API
+  SPACES: '/spaces',
+  SPACES_SEARCH: '/spaces/search',
 };
 
 export default API_ENDPOINTS;
