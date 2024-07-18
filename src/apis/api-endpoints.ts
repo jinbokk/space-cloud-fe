@@ -14,6 +14,10 @@ const API_ENDPOINTS = {
   // spaces API
   SPACES: '/spaces',
   SPACES_SEARCH: '/spaces/search',
+
+  // categories API
+  CATEGORIES: '/categories',
+  CATEGORIES_MAIN: '/categories/main',
 };
 
 export default API_ENDPOINTS;
