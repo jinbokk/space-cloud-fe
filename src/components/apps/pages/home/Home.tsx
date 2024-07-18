@@ -5,6 +5,7 @@ import { BANNER_IMAGE_SET, DUMMY_SPACE_DATA } from '@/data/constant';
 
 import ContentWrapper from '../../layout/ContentWrapper';
 import Banner from '../../ui/Banner';
+import CategoryList from '../../ui/category/CategoryList';
 import SpaceCardList from '../../ui/spaceCard/SpaceCardList';
 
 export default function Home() {
@@ -21,6 +22,9 @@ export default function Home() {
       </Section>
 
       <Section>
+        <ContentWrapper>
+          <CategoryList />
+        </ContentWrapper>
         {isDesktop ? (
           <ContentWrapper>
             <SpaceCardList data={DUMMY_SPACE_DATA} />
