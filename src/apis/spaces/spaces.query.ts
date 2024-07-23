@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 import API_ENDPOINTS from '../api-endpoints';
@@ -60,6 +60,25 @@ export const useSearchSpacesQuery = ({
   return useQuery<SpaceListResultType, AxiosError>({
     queryKey: [API_ENDPOINTS.SPACES_SEARCH, params],
     queryFn: () => searchSpaces(params),
+    ...useQueryOptions,
+  });
+};
+
+// 공간 검색 API 무한 스크롤 쿼리
+export const useInfiniteSearchSpacesQuery = ({
+  params,
+  useQueryOptions,
+}: {
+  params: SpaceSearchParamsType;
+  useQueryOptions?: any;
+}) => {
+  return useInfiniteQuery<SpaceListResultType, AxiosError>({
+    queryKey: [API_ENDPOINTS.SPACES_SEARCH, params.query],
+    queryFn: () => searchSpaces(params as SpaceSearchParamsType),
+    getNextPageParam: (lastPage) => {
+      const nextPage = lastPage.page.number + 1;
+      return nextPage < lastPage.page.totalPages ? nextPage : undefined;
+    },
     ...useQueryOptions,
   });
 };

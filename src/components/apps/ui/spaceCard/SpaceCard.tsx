@@ -63,12 +63,10 @@ export default function SpaceCard({
 }
 
 const SpaceCardContainer = styled.div`
-  flex: 1;
-  overflow: hidden;
   box-shadow: 1px 2px 6px 0 rgba(0, 0, 0, 0.16078);
   border-radius: 12px;
   cursor: pointer;
-  height: 276px;
+  min-width: 0;
 `;
 
 const ImageWrapper = styled.div`
@@ -79,22 +77,28 @@ const ImageWrapper = styled.div`
 const ContentsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
   gap: 5px;
   height: calc(100% - 180px);
   padding: 12px 16px;
+  min-width: 0;
 `;
 
 const Title = styled.h3`
   font-size: 16px;
   font-weight: 600;
   color: #000;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const InfoWrapper = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-between;
-  position: relative;
+  align-items: center;
+  gap: 20px;
+  white-space: nowrap;
   font-family: Pretendard;
   font-size: 12px;
   font-weight: 400;
@@ -111,7 +115,8 @@ const InfoWrapper = styled.div`
   }
 `;
 
-const Dong = styled.span`
+const Dong = styled.div`
+  display: flex;
   position: relative;
   padding-left: 15px;
   &::before {
@@ -126,9 +131,18 @@ const Dong = styled.span`
   }
 `;
 
-const HastagWrapper = styled.div`
-  display: flex;
-  gap: 5px;
+const HastagWrapper = styled.span`
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  span {
+    margin-right: 5px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 `;
 
 const HashTag = styled.span`
@@ -139,7 +153,13 @@ const Fee = styled.span`
   position: relative;
 `;
 
-const CapacityReviewLikeWrapper = styled.div``;
+const CapacityReviewLikeWrapper = styled.div`
+  width: fit-content;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
 
 const Capacity = styled.span`
   position: relative;
