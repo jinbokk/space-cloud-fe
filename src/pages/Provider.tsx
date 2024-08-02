@@ -37,7 +37,6 @@ const Provider = ({ pageProps, children }: AppProps) => {
         defaultOptions: {
           queries: {
             retry: 0,
-            // suspense: true,
             refetchOnWindowFocus: false,
             staleTime: 60 * 1000,
           },
@@ -49,13 +48,16 @@ const Provider = ({ pageProps, children }: AppProps) => {
       }),
   );
 
+  const dehydratedState = pageProps?.dehydratedState || {};
+
   return (
     <QueryClientProvider client={queryClient}>
-      <HydrationBoundary state={pageProps.dehydratedState}>
+      <HydrationBoundary state={dehydratedState}>
         <CacheProvider value={cache}>{children}</CacheProvider>
       </HydrationBoundary>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };
+
 export default Provider;

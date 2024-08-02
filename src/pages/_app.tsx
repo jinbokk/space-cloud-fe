@@ -34,13 +34,15 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Provider pageProps={pageProps}>
       <GlobalStyles />
-      {authenticationRequired && (
+      {authenticationRequired ? (
         <PrivateRoute>
           <Component {...pageProps} />
         </PrivateRoute>
+      ) : (
+        <Component {...pageProps} />
       )}
-      {!authenticationRequired && <Component {...pageProps} />}
     </Provider>
   );
 };
+
 export default App;
