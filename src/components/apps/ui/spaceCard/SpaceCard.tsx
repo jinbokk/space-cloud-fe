@@ -39,6 +39,7 @@ export default function SpaceCard({ spaceData }: Props) {
             alt="space"
             fill
             style={{ objectFit: 'cover', borderRadius: '12px 12px 0 0' }}
+            sizes="380px"
           />
         ) : (
           <NoImage />

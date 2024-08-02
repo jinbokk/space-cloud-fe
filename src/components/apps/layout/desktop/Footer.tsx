@@ -109,7 +109,7 @@ export default function Footer() {
             따라서 스페이스클라우드는 공간 거래정보 및 거래에 대해 책임지지
             않습니다.
           </Text>
-          <Text tw="text-[12px] text-[#949494] whitespace-pre-wrap">
+          <Text tw="text-[#949494] whitespace-pre-wrap">
             Copyright{' '}
             <LinkText href="http://www.nspace.co/" target="_blank">
               NSPACE Corp.
@@ -227,4 +227,5 @@ const ContentsBottom = styled.div`
   gap: 30px;
   justify-content: space-between;
   margin-top: 45px;
+  font-size: 11px;
 `;

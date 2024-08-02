@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
-import { GlobalStyles } from 'twin.macro';
 
 import { useAuthStore } from '@/store/authStore';
 
+import GlobalStyles from '@/styles/GlobalStyles';
 import '@/styles/base/font.css';
 import '@/styles/base/reset.css';
 import '@/styles/globals.css';

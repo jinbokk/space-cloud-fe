@@ -58,7 +58,7 @@ const Icon = styled.i<{ iconUrl: string }>`
 
 const Keyword = styled.div`
   text-align: center;
-  font-size: 12px;
+  font-size: 13px;
   font-family: Pretendard !important;
 `;
 
