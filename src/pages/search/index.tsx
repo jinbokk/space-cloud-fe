@@ -15,5 +15,3 @@ export default function SearchPage() {
     </>
   );
 }
-
-SearchPage.authenticationRequired = false;

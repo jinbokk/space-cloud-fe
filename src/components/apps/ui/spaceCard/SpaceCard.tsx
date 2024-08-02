@@ -35,7 +35,7 @@ export default function SpaceCard({ spaceData }: Props) {
         {imagePaths ? (
           <Image
             // src={imagePaths[0]}
-            src="/images/no-image.jpg"
+            src="/images/dummy_space_image.png"
             alt="space"
             fill
             style={{ objectFit: 'cover', borderRadius: '12px 12px 0 0' }}

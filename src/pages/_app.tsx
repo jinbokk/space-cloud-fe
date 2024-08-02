@@ -20,7 +20,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   const [cookies] = useCookies(['accessToken']);
   const { setAccessToken, clear } = useAuthStore();
 
-  const authenticationRequired = Component.authenticationRequired ?? true;
+  const authenticationRequired = Component.authenticationRequired ?? false;
 
   useEffect(() => {
     if (cookies.accessToken) {
