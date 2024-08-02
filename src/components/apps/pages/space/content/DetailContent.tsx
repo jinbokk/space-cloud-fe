@@ -4,13 +4,15 @@ import { styled, theme } from 'twin.macro';
 
 import { PRECAUTION_TEXT } from '@/data/constant';
 
+import Spinner from '@/components/apps/ui/Spinner';
+
 import DetailContentTitle from './DetailContentTitle';
 
 export default function DetailContent() {
   const context = useContext(SpaceDetailContext);
 
   if (!context) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   const { description, reservationNotes } = context;

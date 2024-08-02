@@ -7,6 +7,7 @@ import { BANNER_IMAGE_SET } from '@/data/constant';
 
 import ContentWrapper from '../../layout/ContentWrapper';
 import Banner from '../../ui/Banner';
+import Spinner from '../../ui/Spinner';
 import CategoryList from '../../ui/category/CategoryList';
 import SpaceCardList from '../../ui/spaceCard/SpaceCardList';
 
@@ -32,7 +33,7 @@ export default function Home() {
           <CategoryList />
         </ContentWrapper>
         {isLoading ? (
-          <div>Loading...</div>
+          <Spinner />
         ) : isDesktop ? (
           <ContentWrapper>
             <SpaceCardList data={data.content} />

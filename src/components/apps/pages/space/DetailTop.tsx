@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import { styled, theme } from 'twin.macro';
 
 import { CustomSwiper } from '../../swiper/CustomSwiper';
+import Spinner from '../../ui/Spinner';
 import DetailContent from './content/DetailContent';
 
 const DUMMY_IMAGE_SET = [
@@ -16,7 +17,7 @@ export default function DetailTop() {
   const context = useContext(SpaceDetailContext);
 
   if (!context) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   const { name, hashtags } = context;

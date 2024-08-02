@@ -4,6 +4,7 @@ import { styled, theme } from 'twin.macro';
 
 import { useInfiniteSearchSpacesQuery } from '@/apis/spaces/spaces.query';
 
+import Spinner from '../../ui/Spinner';
 import SpaceCard from '../../ui/spaceCard/SpaceCard';
 
 export default function SearchPage() {
@@ -42,7 +43,7 @@ export default function SearchPage() {
   );
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
   if (error) {
     return <div>Error: {error.message}</div>;
