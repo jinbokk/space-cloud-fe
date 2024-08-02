@@ -52,39 +52,18 @@ export default function SearchPage() {
     <ResultsContainer>
       <SpaceCardContainer>
         {data.pages.map((page, pageIndex) =>
-          page.content.map((space, index) => {
+          page.content.map((spaceData, index) => {
             if (
               pageIndex === data.pages.length - 1 &&
               index === page.content.length - 1
             ) {
               return (
-                <div key={space.id} ref={lastSpaceCardRef}>
-                  <SpaceCard
-                    title={space.name}
-                    capacity={space.maxCapacity}
-                    hashtag={space.hashtags.map((tag) => `#${tag.name}`)}
-                    fee={space.hourlyRate}
-                    reviewCount={space.reviewCount}
-                    likeCount={space.likeCount}
-                    dong={space.realEstate.address.dong}
-                    imgSrc="https://my-spacestory-bucket.s3.ap-northeast-2.amazonaws.com/298024c6-bdd1-4533-8873-766d3688b0ed-SpaceStory.png"
-                  />
+                <div key={spaceData.id} ref={lastSpaceCardRef}>
+                  <SpaceCard spaceData={spaceData} />
                 </div>
               );
             } else {
-              return (
-                <SpaceCard
-                  key={space.id}
-                  title={space.name}
-                  capacity={space.maxCapacity}
-                  hashtag={space.hashtags.map((tag) => `#${tag.name}`)}
-                  fee={space.hourlyRate}
-                  reviewCount={space.reviewCount}
-                  likeCount={space.likeCount}
-                  dong={space.realEstate.address.dong}
-                  imgSrc="https://my-spacestory-bucket.s3.ap-northeast-2.amazonaws.com/298024c6-bdd1-4533-8873-766d3688b0ed-SpaceStory.png"
-                />
-              );
+              return <SpaceCard key={spaceData.id} spaceData={spaceData} />;
             }
           }),
         )}

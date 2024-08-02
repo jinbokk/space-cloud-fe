@@ -1,47 +1,57 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { styled } from 'twin.macro';
+
+import { SpaceType } from '@/apis/spaces/types';
 
 import NoImage from '../NoImage';
 
-// TODO : 백엔드와 논의하여 프로퍼티 명세 후 수정 필요
-export type SpaceCardProps = {
-  imgSrc?: string;
-  title?: string; // 공간명
-  dong?: string; // 위치 (ex. 망원동)
-  hashtag?: string[]; // 해시태그
-  fee?: number; // 가격
-  capacity?: number; // 수용인원
-  reviewCount?: number; // 리뷰 수
-  likeCount?: number; // 좋아요 수
+type Props = {
+  spaceData: SpaceType;
 };
 
-export default function SpaceCard({
-  imgSrc,
-  title = '공간명',
-  dong = '동명',
-  hashtag = ['#해시태그1', '#해시태그2', '#해시태그3'],
-  fee = 99999,
-  capacity = 20,
-  reviewCount = 10,
-  likeCount = 30,
-}: SpaceCardProps) {
+export default function SpaceCard({ spaceData }: Props) {
+  const {
+    id,
+    imagePaths,
+    name,
+    realEstate,
+    hashtags,
+    hourlyRate,
+    maxCapacity,
+    reviewCount,
+    likeCount,
+  } = spaceData;
+
+  const router = useRouter();
+
+  const handleRoute = () => {
+    router.push(`/space/${id}`);
+  };
+
   return (
-    <SpaceCardContainer>
+    <SpaceCardContainer onClick={handleRoute}>
       <ImageWrapper>
-        {imgSrc ? (
-          <Image src={imgSrc} alt="space" fill style={{ objectFit: 'cover' }} />
+        {imagePaths ? (
+          <Image
+            // src={imagePaths[0]}
+            src="/images/no-image.jpg"
+            alt="space"
+            fill
+            style={{ objectFit: 'cover', borderRadius: '12px 12px 0 0' }}
+          />
         ) : (
           <NoImage />
         )}
       </ImageWrapper>
       <ContentsContainer>
-        <Title>{title}</Title>
+        <Title>{name}</Title>
 
         <InfoWrapper>
-          <Dong>{dong}</Dong>
+          <Dong>{realEstate.address.dong}</Dong>
           <HastagWrapper>
-            {hashtag.map((tag, index) => {
-              return <HashTag key={index}>{tag}</HashTag>;
+            {hashtags.map((tag, index) => {
+              return <HashTag key={index}># {tag.name}</HashTag>;
             })}
           </HastagWrapper>
         </InfoWrapper>
@@ -49,10 +59,10 @@ export default function SpaceCard({
         <InfoWrapper>
           {/* TODO : 원/시간 단위 확인 필요 */}
           <Fee>
-            <strong>{fee.toLocaleString()}</strong> 원/시간
+            <strong>{hourlyRate.toLocaleString()}</strong> 원/시간
           </Fee>
           <CapacityReviewLikeWrapper>
-            <Capacity>{`최대 ${capacity}인`}</Capacity>
+            <Capacity>{`최대 ${maxCapacity}인`}</Capacity>
             <ReviewCount>{reviewCount}</ReviewCount>
             <LikeCount>{likeCount}</LikeCount>
           </CapacityReviewLikeWrapper>

@@ -11,11 +11,13 @@ export interface SpaceType {
   openingTime: TimeType;
   closingTime: TimeType;
   hourlyRate: number;
-  spaceSize: number;
+  size: number;
   maxCapacity: number;
   likeCount: number;
   viewCount: number;
   reviewCount: number;
+  imagePaths: string[];
+  representImage: string;
   realEstate: RealEstateType;
   subCategories: SubCategoryType[];
   spaceOptions: SpaceOptionType[];
