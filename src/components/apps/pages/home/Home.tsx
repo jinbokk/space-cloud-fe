@@ -29,7 +29,9 @@ export default function Home() {
       </Section>
 
       <Section>
-        <CategoryList />
+        <ContentWrapper>
+          <CategoryList />
+        </ContentWrapper>
       </Section>
 
       <Section>
