@@ -1,13 +1,13 @@
 import SpaceDetailContext from '@/context/space/SpaceDetailContext';
 import { styled } from 'twin.macro';
 
-import { SpaceType } from '@/apis/spaces/types';
+import { SpaceDetailType } from '@/apis/spaces/types';
 
 import ContentWrapper from '../../layout/ContentWrapper';
 import DetailTop from './DetailTop';
 
 type Props = {
-  spaceData: SpaceType;
+  spaceData: SpaceDetailType;
 };
 
 export default function SpaceDetail({ spaceData }: Props) {

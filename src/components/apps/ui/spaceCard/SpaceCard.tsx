@@ -4,7 +4,7 @@ import { styled } from 'twin.macro';
 
 import { SpaceType } from '@/apis/spaces/types';
 
-import NoImage from '../NoImage';
+// import NoImage from '../NoImage';
 
 type Props = {
   spaceData: SpaceType;
@@ -13,9 +13,8 @@ type Props = {
 export default function SpaceCard({ spaceData }: Props) {
   const {
     id,
-    imagePaths,
     name,
-    realEstate,
+    dong,
     hashtags,
     hourlyRate,
     maxCapacity,
@@ -32,7 +31,8 @@ export default function SpaceCard({ spaceData }: Props) {
   return (
     <SpaceCardContainer onClick={handleRoute}>
       <ImageWrapper>
-        {imagePaths ? (
+        {/* TODO : 리스트에 이미지 패스 필요 */}
+        {/* {imagePaths ? (
           <Image
             // src={imagePaths[0]}
             src="/images/dummy_space_image.png"
@@ -43,13 +43,20 @@ export default function SpaceCard({ spaceData }: Props) {
           />
         ) : (
           <NoImage />
-        )}
+        )} */}
+        <Image
+          src="/images/dummy_space_image.png"
+          alt="space"
+          fill
+          style={{ objectFit: 'cover', borderRadius: '12px 12px 0 0' }}
+          sizes="380px"
+        />
       </ImageWrapper>
       <ContentsContainer>
         <Title>{name}</Title>
 
         <InfoWrapper>
-          <Dong>{realEstate.address.dong}</Dong>
+          <Dong>{dong}</Dong>
           <HastagWrapper>
             {hashtags.map((tag, index) => {
               return <HashTag key={index}># {tag.name}</HashTag>;

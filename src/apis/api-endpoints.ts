@@ -17,7 +17,6 @@ const API_ENDPOINTS = {
 
   // categories API
   CATEGORIES: '/categories',
-  CATEGORIES_MAIN: '/categories/main',
 };
 
 export default API_ENDPOINTS;

@@ -1,20 +1,12 @@
-import {
-  useAllCategoriesQuery,
-  useMainCategoriesQuery,
-} from '@/categories/categories.query';
+import { useCategoriesQuery } from '@/categories/categories.query';
 import { SubCategoryType } from '@/categories/types';
-import React, { useEffect, useState } from 'react';
-import { styled } from 'twin.macro';
+import { useEffect, useState } from 'react';
+import { styled, theme } from 'twin.macro';
 
-import SubCategoryItem from './SubCategoryItem';
+import { SubCategoryItem } from './SubCategoryItem';
 
 export default function CategoryList() {
-  const { data: mainCategories, isLoading: mainLoading } =
-    useMainCategoriesQuery();
-
-  const { data: allCategories, isLoading: allLoading } =
-    useAllCategoriesQuery();
-
+  const { data, isLoading } = useCategoriesQuery({});
   const [selectedMainCategoryId, setSelectedMainCategoryId] = useState<
     number | null
   >(null);
@@ -22,26 +14,21 @@ export default function CategoryList() {
   const [subCategories, setSubCategories] = useState<SubCategoryType[]>([]);
 
   useEffect(() => {
-    if (mainCategories) {
-      setSelectedMainCategoryId(null); // 기본값을 전체로 설정
-    }
-  }, [mainCategories]);
-
-  useEffect(() => {
-    if (selectedMainCategoryId === null && allCategories) {
-      const allSubCategories = allCategories.flatMap(
-        (category) => category.subCategories,
-      );
+    if (selectedMainCategoryId === null) {
+      // 전체 선택시 모든 subCategories를 설정
+      const allSubCategories =
+        data?.flatMap((category) => category.subCategories) || [];
       setSubCategories(allSubCategories);
-    } else if (selectedMainCategoryId !== null && allCategories) {
-      const selectedCategory = allCategories.find(
+    } else {
+      // 특정 카테고리가 선택되었을 때 해당 카테고리의 subCategories를 설정
+      const selectedCategory = data?.find(
         (category) => category.id === selectedMainCategoryId,
       );
       setSubCategories(selectedCategory ? selectedCategory.subCategories : []);
     }
-  }, [selectedMainCategoryId, allCategories]);
+  }, [selectedMainCategoryId, data]);
 
-  if (mainLoading || allLoading) {
+  if (isLoading) {
     return;
   }
 
@@ -54,13 +41,13 @@ export default function CategoryList() {
         >
           전체
         </Tab>
-        {mainCategories?.map((mainCategory) => (
+        {data?.map((allCategoriesData) => (
           <Tab
-            key={mainCategory.id}
-            isActive={mainCategory.id === selectedMainCategoryId}
-            onClick={() => setSelectedMainCategoryId(mainCategory.id)}
+            key={allCategoriesData.id}
+            isActive={allCategoriesData.id === selectedMainCategoryId}
+            onClick={() => setSelectedMainCategoryId(allCategoriesData.id)}
           >
-            {mainCategory.name}
+            {allCategoriesData.name}
           </Tab>
         ))}
       </TabsContainer>
@@ -84,7 +71,6 @@ const TabsContainer = styled.div`
   grid-template-columns: repeat(6, 1fr);
   width: 100%;
   margin-bottom: 20px;
-
   font-family: Pretendard !important;
   font-size: 12px;
   font-weight: 400;
@@ -116,7 +102,11 @@ const Tab = styled.button<{ isActive: boolean }>`
 `;
 
 const SubCategoryContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  place-items: center;
+  @media (min-width: ${theme`screens.lg`}) {
+    grid-template-columns: repeat(7, 1fr);
+  }
 `;

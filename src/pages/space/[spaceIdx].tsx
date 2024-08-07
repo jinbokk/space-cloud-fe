@@ -1,12 +1,12 @@
 import { getSpaceDetail } from '@/apis/spaces/spaces';
-import { SpaceType } from '@/apis/spaces/types';
+import { SpaceDetailType } from '@/apis/spaces/types';
 
 import DesktopLayout from '@/components/apps/layout/desktop/DesktopLayout';
 import MobileLayout from '@/components/apps/layout/mobile/MobileLayout';
 import SpaceDetail from '@/components/apps/pages/space/SpaceDetail';
 
 type Props = {
-  data: SpaceType;
+  data: SpaceDetailType;
 };
 
 export default function SpaceDetailPage({ data }: Props) {

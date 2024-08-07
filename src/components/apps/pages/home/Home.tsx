@@ -29,9 +29,10 @@ export default function Home() {
       </Section>
 
       <Section>
-        <ContentWrapper>
-          <CategoryList />
-        </ContentWrapper>
+        <CategoryList />
+      </Section>
+
+      <Section>
         {isLoading ? (
           <Spinner />
         ) : isDesktop ? (

@@ -1,40 +1,9 @@
 import API_ENDPOINTS from '@/apis/api-endpoints';
 import { pureAxios } from '@/apis/axios';
 
-import { CategoryType, MainCategoryType, SubCategoryType } from './types';
+import { CategoryType } from './types';
 
-// Fetch all main categories
-export const getMainCategories = async (): Promise<MainCategoryType[]> => {
-  try {
-    const res = await pureAxios.get(API_ENDPOINTS.CATEGORIES_MAIN);
-    if (res.status !== 200) {
-      throw new Error(res.data.msg || 'Failed to fetch main categories');
-    }
-    return res.data;
-  } catch (error: any) {
-    throw new Error(error.message);
-  }
-};
-
-// Fetch all subcategories of a main category
-export const getSubCategories = async (
-  id: number,
-): Promise<SubCategoryType[]> => {
-  try {
-    const res = await pureAxios.get(
-      `${API_ENDPOINTS.CATEGORIES_MAIN}/${id}/sub`,
-    );
-    if (res.status !== 200) {
-      throw new Error(res.data.msg || 'Failed to fetch subcategories');
-    }
-    return res.data;
-  } catch (error: any) {
-    throw new Error(error.message);
-  }
-};
-
-// Fetch all categories
-export const getAllCategories = async (): Promise<CategoryType[]> => {
+export const getCategories = async (): Promise<CategoryType[]> => {
   try {
     const res = await pureAxios.get(API_ENDPOINTS.CATEGORIES);
     if (res.status !== 200) {
@@ -44,4 +13,12 @@ export const getAllCategories = async (): Promise<CategoryType[]> => {
   } catch (error: any) {
     throw new Error(error.message);
   }
+};
+
+// 특정 카테고리의 하위 카테고리 리스트 쿼리
+export const getSubCategories = async (mainCategoryId: number) => {
+  const response = await pureAxios.get(
+    `${API_ENDPOINTS.CATEGORIES}/main/${mainCategoryId}/sub`,
+  );
+  return response.data;
 };

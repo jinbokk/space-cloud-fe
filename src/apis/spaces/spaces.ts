@@ -1,6 +1,7 @@
 import API_ENDPOINTS from '../api-endpoints';
 import { pureAxios } from '../axios';
 import {
+  SpaceDetailType,
   SpaceListResultType,
   SpaceSearchParamsType,
   SpaceType,
@@ -70,7 +71,7 @@ export const searchSpaces = async (
 };
 
 // Get Space Detail API
-export const getSpaceDetail = async (id: number): Promise<SpaceType> => {
+export const getSpaceDetail = async (id: number): Promise<SpaceDetailType> => {
   try {
     const res = await pureAxios.get(`${API_ENDPOINTS.SPACES}/${id}`);
     if (res.status !== 200) {

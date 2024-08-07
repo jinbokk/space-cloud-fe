@@ -6,10 +6,22 @@ export interface SpaceListResultType {
 export interface SpaceType {
   id: number;
   name: string;
+  representImage: any;
+  hourlyRate: number;
+  maxCapacity: number;
+  reviewCount: number;
+  likeCount: number;
+  dong: string;
+  hashtags: HashtagType[];
+}
+
+export interface SpaceDetailType {
+  id: number;
+  name: string;
   description: string;
   reservationNotes: string;
-  openingTime: TimeType;
-  closingTime: TimeType;
+  openingTime: string;
+  closingTime: string;
   hourlyRate: number;
   size: number;
   maxCapacity: number;
@@ -17,7 +29,7 @@ export interface SpaceType {
   viewCount: number;
   reviewCount: number;
   imagePaths: string[];
-  representImage: string;
+  representImage: any;
   realEstate: RealEstateType;
   subCategories: SubCategoryType[];
   spaceOptions: SpaceOptionType[];

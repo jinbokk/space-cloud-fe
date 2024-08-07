@@ -1,10 +1,55 @@
 import { useRouter } from 'next/router';
 import React from 'react';
-import { styled } from 'twin.macro';
+import { styled, theme } from 'twin.macro';
 
 interface SubCategoryItemProps {
   name: string;
 }
+
+export const SubCategoryItem = ({ name }: SubCategoryItemProps) => {
+  const router = useRouter();
+  const iconUrl = `/images/icons/${iconMapping[name]}.svg`;
+
+  const handleClick = () => {
+    router.push(`/search?q=${name}&page=1`);
+  };
+
+  return (
+    <Button onClick={handleClick}>
+      <Icon iconUrl={iconUrl} />
+      <Keyword>{name}</Keyword>
+    </Button>
+  );
+};
+
+const Button = styled.button`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  width: 50px;
+`;
+
+const Icon = styled.i<{ iconUrl: string }>`
+  width: 48px;
+  height: 48px;
+  background-image: url(${(props) => props.iconUrl});
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-bottom: 8px;
+`;
+
+const Keyword = styled.div`
+  text-align: center;
+  font-size: 12px;
+  font-family: Pretendard !important;
+
+  @media (min-width: ${theme`screens.lg`}) {
+    font-size: 13px;
+  }
+`;
 
 const iconMapping: Record<string, string> = {
   파티룸: 'gathering',
@@ -35,47 +80,3 @@ const iconMapping: Record<string, string> = {
   당일캠핑: 'camping_service',
   가정집: 'house',
 };
-
-const Button = styled.button`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 16px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  width: 100px;
-`;
-
-const Icon = styled.i<{ iconUrl: string }>`
-  width: 48px;
-  height: 48px;
-  background-image: url(${(props) => props.iconUrl});
-  background-size: contain;
-  background-repeat: no-repeat;
-  margin-bottom: 8px;
-`;
-
-const Keyword = styled.div`
-  text-align: center;
-  font-size: 13px;
-  font-family: Pretendard !important;
-`;
-
-const SubCategoryItem: React.FC<SubCategoryItemProps> = ({ name }) => {
-  const router = useRouter();
-  const iconUrl = `/images/icons/${iconMapping[name]}.svg`;
-
-  const handleClick = () => {
-    router.push(`/search?q=${name}&page=1`);
-  };
-
-  return (
-    <Button onClick={handleClick}>
-      <Icon iconUrl={iconUrl} />
-      <Keyword>{name}</Keyword>
-    </Button>
-  );
-};
-
-export default SubCategoryItem;

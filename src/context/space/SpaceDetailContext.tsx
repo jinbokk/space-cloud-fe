@@ -1,7 +1,9 @@
 import { createContext } from 'react';
 
-import { SpaceType } from '@/apis/spaces/types';
+import { SpaceDetailType } from '@/apis/spaces/types';
 
-const SpaceDetailContext = createContext<SpaceType | undefined>(undefined);
+const SpaceDetailContext = createContext<SpaceDetailType | undefined>(
+  undefined,
+);
 
 export default SpaceDetailContext;
